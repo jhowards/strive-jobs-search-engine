@@ -1,24 +1,36 @@
-import logo from './logo.svg';
-import './App.css';
+import "./App.css";
+import "bootstrap/dist/css/bootstrap.min.css";
+import { Container } from "react-bootstrap";
+import {
+  BrowserRouter as Router,
+  Switch,
+  Route,
+  Redirect,
+} from "react-router-dom";
+
+import CompanyDetail from "./components/CompanyDetail";
+import SearchPage from "./components/SearchPage";
+import FavouriteCompanies from "./components/FavouriteCompanies";
 
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <Container className="App">
+      <Router>
+        <Switch>
+          <Route exact path="/">
+            {<Redirect to="/search" />}
+          </Route>
+
+          <Route path="/search" exact component={SearchPage} />
+          <Route path="/favourites" exact component={FavouriteCompanies} />
+          <Route
+            path="/company-detail/:company_name"
+            exact
+            render={(props) => <CompanyDetail id="890811" {...props} />}
+          />
+        </Switch>
+      </Router>
+    </Container>
   );
 }
 
